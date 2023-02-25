@@ -24,4 +24,5 @@ public interface TerremotoDAO {
 
     @Query("SELECT * FROM TERREMOTOS")
     List<Terremoto> obtenerTodosLosTerremotos();
+
 }

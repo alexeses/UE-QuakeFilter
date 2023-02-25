@@ -29,11 +29,11 @@ public class Terremoto {
     private String lugar;
 
     @ColumnInfo(name = "cantidadMuertos")
-    private int cantidadMuertos;
+    private String cantidadMuertos;
 
     // Constructor
-    public Terremoto(String fechaHora, String nombreDispositivo, double magnitud,
-                     String coordenadasEpicentro, String lugar, int cantidadMuertos) {
+    public Terremoto(String fechaHora, double magnitud, String nombreDispositivo,
+                     String coordenadasEpicentro, String lugar, String cantidadMuertos) {
         this.fechaHora = fechaHora;
         this.nombreDispositivo = nombreDispositivo;
         this.magnitud = magnitud;
@@ -53,6 +53,18 @@ public class Terremoto {
     public void setCoordenadasEpicentro(String coordenadasEpicentro) { this.coordenadasEpicentro = coordenadasEpicentro; }
     public String getLugar() { return lugar; }
     public void setLugar(String lugar) { this.lugar = lugar; }
-    public int getCantidadMuertos() { return cantidadMuertos; }
-    public void setCantidadMuertos(int cantidadMuertos) { this.cantidadMuertos = cantidadMuertos; }
+    public String getCantidadMuertos() { return cantidadMuertos; }
+    public void setCantidadMuertos(String cantidadMuertos) { this.cantidadMuertos = cantidadMuertos; }
+
+    @Override
+    public String toString() {
+        return "Terremoto{" +
+                "fechaHora='" + fechaHora + '\'' +
+                ", nombreDispositivo='" + nombreDispositivo + '\'' +
+                ", magnitud=" + magnitud +
+                ", coordenadasEpicentro='" + coordenadasEpicentro + '\'' +
+                ", lugar='" + lugar + '\'' +
+                ", cantidadMuertos='" + cantidadMuertos + '\'' +
+                '}';
+    }
 }
