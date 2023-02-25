@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvNombreTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terremoto de ejemplo"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMagnitudTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Magnitud: 6.8"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCoordenadasTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coordenadas: 19.39° N, 155.27° W"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvLugarTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lugar: Hawaii"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvFechaTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha: 01/01/2022"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvMuertosTerremoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Muertos: 0"
+        android:textSize="16sp" />
+
+</LinearLayout>

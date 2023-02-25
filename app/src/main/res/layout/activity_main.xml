@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/ivTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:src="@drawable/world"
         app:layout_constraintBottom_toTopOf="@+id/llButtons"
         android:alpha="0.8"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btnFilter"
+            android:id="@+id/btn_dialog"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,7 +42,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnGetData"
+            android:id="@+id/btn_show_data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,7 +56,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvFilter"
+        android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Current Filter:"
@@ -79,6 +79,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/v_terremotos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvCopyRight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_data" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,4 +31,12 @@ public class PaisAfectado {
     public void setFechaHora(String fechaHora) { this.fechaHora = fechaHora; }
     public String getPais() { return pais; }
     public void setPais(String pais) { this.pais = pais; }
+
+    @Override
+    public String toString() {
+        return "PaisAfectado{" +
+                "fechaHora='" + fechaHora + '\'' +
+                ", pais='" + pais + '\'' +
+                '}';
+    }
 }

@@ -25,4 +25,15 @@ public interface TerremotoDAO {
     @Query("SELECT * FROM TERREMOTOS")
     List<Terremoto> obtenerTodosLosTerremotos();
 
+    // Borra todos los terremotos
+    @Query("DELETE FROM TERREMOTOS")
+    void borrarTodosLosTerremotos();
+
+    // Terremotos ordenados por magnitud
+    @Query("SELECT * FROM TERREMOTOS ORDER BY magnitud DESC")
+    List<Terremoto> ordenarPorMagnitud();
+
+
+
+
 }

@@ -14,7 +14,7 @@ public class PaisesAfectados {
         paisesAfectados.add(new PaisAfectado("26 de diciembre de 2004, 07:58", "Indonesia"));
         paisesAfectados.add(new PaisAfectado("27 de marzo de 1964, 17:36", "Estados Unidos"));
         paisesAfectados.add(new PaisAfectado("11 de marzo de 2011, 14:46", "Japón"));
-        paisesAfectados.add(new PaisAfectado("4 de noviembre de 1952, 16:58", "Rusia"));
+        //paisesAfectados.add(new PaisAfectado("4 de noviembre de 1952, 16:58", "Rusia"));
         paisesAfectados.add(new PaisAfectado("13 de agosto de 1868, 21:30", "Chile"));
         paisesAfectados.add(new PaisAfectado("28 de octubre de 1746, 22:30", "Perú"));
         paisesAfectados.add(new PaisAfectado("26 de enero de 1700, 21:30", "Estados Unidos"));
