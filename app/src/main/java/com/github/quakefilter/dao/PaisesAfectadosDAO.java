@@ -1,0 +1,19 @@
+package com.github.quakefilter.dao;
+
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
+
+import com.github.quakefilter.entities.PaisAfectado;
+
+import java.util.List;
+
+@Dao
+public interface PaisesAfectadosDAO {
+
+    @Insert
+    void insertarPaisAfectado(PaisAfectado paisAfectado);
+
+    @Query("SELECT * FROM PAISES_AFECTADOS")
+    List<PaisAfectado> obtenerTodosLosPaisesAfectados();
+}
