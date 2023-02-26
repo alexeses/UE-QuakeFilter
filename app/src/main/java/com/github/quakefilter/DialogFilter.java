@@ -63,7 +63,6 @@ public class DialogFilter extends DialogFragment {
 
         List<String> countries = new ArrayList<>();
 
-
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
@@ -103,22 +102,19 @@ public class DialogFilter extends DialogFragment {
                                 return;
                             }
                         }
-
-                    magnitud = Double.parseDouble(magnitudString);
-
-                    // Verifica si la magnitud está dentro del rango permitido
-                    if (magnitud < 0 || magnitud > 10) {
-                        Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
-                        magnitudeEditText.requestFocus();
-                        return;
-                    }
+                        magnitud = Double.parseDouble(magnitudString);
+                        // Verifica si la magnitud está dentro del rango permitido
+                        if (magnitud < 0 || magnitud > 10) {
+                            Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
+                            magnitudeEditText.requestFocus();
+                            return;
+                        }
 
                     } catch (NumberFormatException e) {
                         Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
                         magnitudeEditText.requestFocus();
                         return;
                     }
-
 
                     if (operator.equals("N/a") && country.equals("Global")) {
                         Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
@@ -145,6 +141,5 @@ public class DialogFilter extends DialogFragment {
                     dismiss();
                 });
         return builder.create();
-
     }
 }

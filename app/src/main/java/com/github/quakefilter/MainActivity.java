@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
 
             });
 
-
-
         });
 
         createDB();
