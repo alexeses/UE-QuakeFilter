@@ -88,21 +88,30 @@ public class DialogFilter extends DialogFragment {
                 .setTitle(R.string.filter)
                 .setPositiveButton(R.string.btn_filter, (dialog, id) -> {
                     String operator = operatorSpinner.getSelectedItem().toString();
-                    String magnitudeString = magnitudeEditText.getText().toString();
+                    String magnitudString = magnitudeEditText.getText().toString();
                     String country = countrySpinner.getSelectedItem().toString();
 
-                    double magnitude;
+                    double magnitud;
                     try {
 
-                        if (operator.equals("N/a") && magnitudeString.isEmpty())
-                            magnitudeString = "0";
+                        if (operator.equals("N/a") && magnitudString.isEmpty())
+                            magnitudString = "0";
                         else {
-                            if (magnitudeString.isEmpty()) {
+                            if (magnitudString.isEmpty()) {
                                 Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
                                 magnitudeEditText.requestFocus();
                                 return;
                             }
                         }
+
+                    magnitud = Double.parseDouble(magnitudString);
+
+                    // Verifica si la magnitud está dentro del rango permitido
+                    if (magnitud < 0 || magnitud > 10) {
+                        Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
+                        magnitudeEditText.requestFocus();
+                        return;
+                    }
 
                     } catch (NumberFormatException e) {
                         Toast.makeText(getContext(), R.string.invalid_magnitude, Toast.LENGTH_SHORT).show();
@@ -123,14 +132,14 @@ public class DialogFilter extends DialogFragment {
                         operatorSpinner.performClick();
                         return;
                     } else {
-                        filterText = "Magnitud: " + operator + " " + magnitudeString + ", ";
+                        filterText = "Magnitud: " + operator + " " + magnitudString + ", ";
                     }
 
                     if (!country.isEmpty()) {
                         filterText += "País: " + country;
                     }
 
-                    listener.onFilterSelected(filterText, country, operator, magnitudeString);
+                    listener.onFilterSelected(filterText, country, operator, magnitudString);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
                     dismiss();
