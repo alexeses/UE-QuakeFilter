@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">QuakeFilter</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_dialog">Seleccionar</string>
     <string name="btn_show_data">Consultar</string>
+    <string name="dialog_filter">DialogFilter</string>
+    <string name="no_earthquakes">No hay datos</string>
+    <string name="invalid_magnitude">Introduce una magnitud válida</string>
+    <string name="invalid_magnitudeNumber">La magnitud debe estar entre 0 y 10</string>
+    <string name="cancel">Cancelar</string>
+    <string name="filter">Filtrar Terremotos</string>
+    <string name="btn_filter">Filtrar</string>
+    <string name="default_data">Magnitud: N/a, Pais: N/a</string>
+    <string name="wrong_operator">Introduce el operador correspondiente</string>
 </resources>

@@ -12,10 +12,8 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/llButtons"
-        android:alpha="0.5"
-        android:gravity="center"
-        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/general_margin"
+        android:alpha="0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,10 +24,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/ivTop">
 
         <Button
             android:id="@+id/btn_dialog"
@@ -38,7 +36,8 @@
             android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:background="#9DC08B"
+            android:background="@drawable/rounded_button"
+            app:backgroundTint="#9DC08B"
             android:text="@string/btn_dialog"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -50,7 +49,8 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:background="#9DC08B"
+            android:background="@drawable/rounded_button"
+            app:backgroundTint="#609966"
             android:text="@string/btn_show_data"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -61,24 +61,14 @@
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="@string/default_data"
+        android:layout_margin="5dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llButtons" />
-
-    <TextView
-        android:id="@+id/tvCopyRight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Alex Gheorghe © 2023, All Rights Reserved"
-        android:textSize="12sp"
-        android:layout_marginBottom="2dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/v_terremotos"
@@ -86,9 +76,19 @@
         android:layout_height="0dp"
         android:paddingStart="@dimen/general_margin"
         android:paddingEnd="@dimen/general_margin"
-        app:layout_constraintBottom_toTopOf="@+id/tvCopyRight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_data" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_data"
+        app:layout_constraintBottom_toTopOf="@+id/tv_empty"
+        />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

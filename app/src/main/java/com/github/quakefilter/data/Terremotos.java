@@ -13,7 +13,6 @@ public class Terremotos {
         terremotos.add(new Terremoto("26 de diciembre de 2004, 07:58", 9.3, "Terremoto del océano Índico de 2004", "Frente al norte de la isla de Sumatra", "Sin datos", "230270"));
         terremotos.add(new Terremoto("27 de marzo de 1964, 17:36", 9.2, "Terremoto de Alaska de 1964", "Anchorage, Alaska", "61°N 148°O", "128"));
         terremotos.add(new Terremoto("11 de marzo de 2011, 14:46", 9.1, "Terremoto y maremoto de Japón de 2011", "Costa Este de la Región de Tōhoku, Honshū", "38°19′19.20″N 142°22′8.40″E", "15897"));
-        terremotos.add(new Terremoto("4 de noviembre de 1952, 16:58", 9.0, "Terremoto de Kamchatka de 1952", "Península de Kamchatka", "52°48′N 159°30′E", "2366"));
         terremotos.add(new Terremoto("13 de agosto de 1868, 21:30", 9.0, "Terremoto de Arica de 1868", "Arica", "18°36′S 71°0′O", "693"));
         terremotos.add(new Terremoto("28 de octubre de 1746, 22:30", 9.0, "Terremoto de Lima de 1746", "Lima y Callao", "11°21′00″S 77°16′48″O", "15000 a 20000"));
         terremotos.add(new Terremoto("26 de enero de 1700, 21:30", 9.0, "Terremoto de Cascadia de 1700", "California, Oregón, Washington y Columbia Británica", "Sin datos", "Sin datos"));

@@ -30,6 +30,7 @@ public class PaisAfectado {
     public String getFechaHora() { return fechaHora; }
     public String getPais() { return pais; }
 
+    // ToString method
     @Override
     public String toString() {
         return "PaisAfectado{" +

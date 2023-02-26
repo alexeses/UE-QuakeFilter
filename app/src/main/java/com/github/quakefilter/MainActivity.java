@@ -1,14 +1,14 @@
 package com.github.quakefilter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.quakefilter.dao.PaisesAfectadosDAO;
 import com.github.quakefilter.dao.TerremotoDAO;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
 
         btnDialog.setOnClickListener(v -> {
             DialogFilter dialogFilter = new DialogFilter();
-            dialogFilter.show(getSupportFragmentManager(), "DialogFilter");
+            dialogFilter.show(getSupportFragmentManager(), R.string.dialog_filter + "");
         });
 
         btnShowData.setOnClickListener(v -> {
@@ -58,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
             vTerremotos.setItemAnimator(new DefaultItemAnimator());
             vTerremotos.setAdapter(adapter);
 
-            TerremotosDB = TerremotosDB.getDatabase(this);
+
+
+            TerremotosDB = com.github.quakefilter.database.TerremotosDB.getDatabase(this);
             TerremotoDAO tDao = TerremotosDB.terremotoDAO();
 
-            // Usamos un Executor para ejecutar la consulta en un hilo secundario
             Executor executor = Executors.newSingleThreadExecutor();
-
             executor.execute(() -> {
 
                 // Case: Sin filtro
@@ -73,9 +73,10 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
                     if (!country.isEmpty() && operator.isEmpty() && magnitude.isEmpty())
                         datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisSinOrdenar(country));
 
-                    // TODO: Pendiente de implementar
-                    //if (operator.equals("N/a") && magnitude.isEmpty() && !country.isEmpty())
-                    //    datosTerremotos.addAll(tDao.obtenerTerremotosPorPais(country));
+                    if (operator.contains("N/a") && !country.isEmpty()) {
+                        datosTerremotos.addAll(tDao.obtenerTerremotosPorPais(country));
+                        System.out.println("Terremotos de " + country + " sin operador");
+                    }
 
                     // Case: Global, usando operador y magnitud
                     if (!operator.isEmpty() && !magnitude.isEmpty() && country.equals("Global"))
@@ -88,20 +89,19 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
                 } else {
                     // Case: No hay filtro, mostrar todos los terremotos ordenados por magnitud
                     datosTerremotos.addAll(tDao.obtenerTodosLosTerremotos());
-                    tvData.setText("Magnitud: N/a, Pais: N/a");
                 }
 
                 // Toast no funciona en un hilo secundario, por lo que usamos runOnUiThread
                 runOnUiThread(() -> {
                     if (datosTerremotos.isEmpty())
-                        Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.no_earthquakes, Toast.LENGTH_SHORT).show();
                 });
 
             });
 
-        });
+            createDB();
 
-        createDB();
+        });
     }
 
     private void createDB() {
@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
 
             System.out.println("Total de terremotos: " + tDao.obtenerTodosLosTerremotos().size());
             System.out.println("Total de paises afectados: " + pAfect.obtenerTodosLosPaisesAfectados().size());
+
+            // For testing purposes
+            //tDao.borrarTodosLosTerremotos();
+            //pAfect.borrarTodosLosPaisesAfectados();
 
             if (tDao.obtenerTodosLosTerremotos().isEmpty()) {
                 System.out.println("Base de datos creada correctamente");

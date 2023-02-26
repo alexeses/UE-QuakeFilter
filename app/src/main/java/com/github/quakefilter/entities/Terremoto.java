@@ -50,6 +50,7 @@ public class Terremoto {
     public String getLugar() { return lugar; }
     public String getCantidadMuertos() { return cantidadMuertos; }
 
+    // ToString method
     @Override
     public String toString() {
         return "Terremoto{" +

@@ -51,11 +51,11 @@ public class TerremotoAdapter extends RecyclerView.Adapter<TerremotoAdapter.Terr
 
         public void bindTerremoto(Terremoto terremoto) {
             tvNombre.setText(terremoto.getNombreDispositivo());
-            tvMagnitud.setText(String.valueOf(terremoto.getMagnitud()));
-            tvCoordenadas.setText(terremoto.getCoordenadasEpicentro());
-            tvLugar.setText(terremoto.getLugar());
-            tvFecha.setText(terremoto.getFechaHora());
-            tvMuertos.setText(terremoto.getCantidadMuertos());
+            tvMagnitud.setText("Magnitud: " + terremoto.getMagnitud());
+            tvCoordenadas.setText("Ubi: " + terremoto.getCoordenadasEpicentro());
+            tvLugar.setText("Lugar: " + terremoto.getLugar());
+            tvFecha.setText("Fecha: " + terremoto.getFechaHora());
+            tvMuertos.setText("Muertos: " + terremoto.getCantidadMuertos());
         }
     }
 }

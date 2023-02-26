@@ -1,10 +1,8 @@
 package com.github.quakefilter.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.github.quakefilter.entities.Terremoto;
 
@@ -15,12 +13,6 @@ public interface TerremotoDAO {
 
     @Insert
     void insertarTerremoto(Terremoto terremoto);
-
-    @Update
-    void actualizarTerremoto(Terremoto terremoto);
-
-    @Delete
-    void borrarTerremoto(Terremoto terremoto);
 
     @Query("SELECT * FROM TERREMOTOS" + " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTodosLosTerremotos();
@@ -33,7 +25,9 @@ public interface TerremotoDAO {
     @Query("SELECT * FROM TERREMOTOS ORDER BY magnitud DESC")
     List<Terremoto> ordenarPorMagnitud();
 
-    @Query("SELECT * FROM Terremotos WHERE lugar LIKE :pais" + " ORDER BY magnitud DESC")
+    // Obten todos los terremotos por pais
+    @Query("SELECT TERREMOTOS.* FROM TERREMOTOS, PAISES_AFECTADOS WHERE TERREMOTOS.fechaHora = " +
+            "PAISES_AFECTADOS.fechaHora AND PAISES_AFECTADOS.pais LIKE :pais" + " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTerremotosPorPais(String pais);
 
     @Query("SELECT TERREMOTOS.* FROM TERREMOTOS, PAISES_AFECTADOS WHERE TERREMOTOS.fechaHora = " +
