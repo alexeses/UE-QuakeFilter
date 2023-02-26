@@ -38,7 +38,7 @@ public class DialogFilter extends DialogFragment {
         try {
             listener = (OnFilterSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnFilterSelectedListener");
+            throw new ClassCastException(context + " must implement OnFilterSelectedListener");
         }
     }
 
@@ -88,21 +88,34 @@ public class DialogFilter extends DialogFragment {
         builder.setView(view)
                 .setTitle("Filtrar Terremotos")
                 .setPositiveButton("Filtrar", (dialog, id) -> {
-
                     String operator = operatorSpinner.getSelectedItem().toString();
-                    String magnitude = magnitudeEditText.getText().toString();
+                    String magnitudeString = magnitudeEditText.getText().toString();
                     String country = countrySpinner.getSelectedItem().toString();
 
-                    // Se construye la cadena de texto del filtro, concatenando el operador y la magnitud
+                    double magnitude;
+                    try {
+                        magnitude = Double.parseDouble(magnitudeString);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(getContext(), "Introduce una magnitud válida", Toast.LENGTH_SHORT).show();
+                        magnitudeEditText.requestFocus();
+                        return;
+                    }
+
+                    if (magnitude < 0 || magnitude > 10) {
+                        Toast.makeText(getContext(), "La magnitud debe estar entre 0 y 10", Toast.LENGTH_SHORT).show();
+                        magnitudeEditText.requestFocus();
+                        return;
+                    }
+
                     String filterText = "";
-                    if (!magnitude.isEmpty()) {
+                    if (!magnitudeString.isEmpty()) {
                         if (operator.isEmpty()) {
                             // Si se introdujo la magnitud pero no el operador, se pide el operador
                             Toast.makeText(getContext(), "Introduce el operador correspondiente", Toast.LENGTH_SHORT).show();
                             operatorSpinner.performClick();
                             return;
                         } else {
-                            filterText = "Magnitud: " + operator + " " + magnitude + ", ";
+                            filterText = "Magnitud: " + operator + " " + magnitudeString + ", ";
                         }
                     } else if (!operator.isEmpty()) {
                         // Si se introdujo el operador pero no la magnitud, se pide la magnitud
@@ -110,11 +123,12 @@ public class DialogFilter extends DialogFragment {
                         magnitudeEditText.requestFocus();
                         return;
                     }
-                    if (country != null && !country.isEmpty()) {
+
+                    if (!country.isEmpty()) {
                         filterText += "País: " + country;
                     }
 
-                    listener.onFilterSelected(filterText, country, operator, magnitude);
+                    listener.onFilterSelected(filterText, country, operator, magnitudeString);
                 })
                 .setNegativeButton("Cancelar", (dialog, id) -> {
                     // Se cierra el diálogo sin enviar ningún filtro

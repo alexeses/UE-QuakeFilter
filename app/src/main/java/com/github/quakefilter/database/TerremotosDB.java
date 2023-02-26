@@ -23,7 +23,7 @@ public abstract class TerremotosDB extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             TerremotosDB.class, "TERREMOTOS_DB")
-                            .allowMainThreadQueries() // TODO: Retirar
+                            // .allowMainThreadQueries() // NO USAR EN PRODUCCIÓN, SÓLO PARA PRUEBAS
                             .build();
                 }
             }

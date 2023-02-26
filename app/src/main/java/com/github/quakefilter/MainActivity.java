@@ -61,27 +61,38 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
             TerremotosDB = TerremotosDB.getDatabase(this);
             TerremotoDAO tDao = TerremotosDB.terremotoDAO();
 
-            // Case: Sin filtro
-            if (filterText != null && !filterText.isEmpty()) {
+            // Usamos un Executor para ejecutar la consulta en un hilo secundario
+            Executor executor = Executors.newSingleThreadExecutor();
 
-                // Case: Terremotos de un pais
-                if (!country.isEmpty() && operator.isEmpty() && magnitude.isEmpty())
-                    datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisSinOrdenar(country));
+            executor.execute(() -> {
 
-                // Case: Global, usando operador y magnitud
-                if (!operator.isEmpty() && !magnitude.isEmpty() && country.equals("Global"))
-                    datosTerremotos.addAll(tDao.obtenerTerremotosPorOperadorYMagnitud(operator, magnitude));
+                // Case: Sin filtro
+                if (filterText != null && !filterText.isEmpty()) {
 
-                // Case: Usando Pais, Operador y Magnitud
-                if (!operator.isEmpty() && !magnitude.isEmpty() && !country.isEmpty())
-                    datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisOperadorYMagnitud(country, operator, magnitude));
+                    // Case: Terremotos de un pais
+                    if (!country.isEmpty() && operator.isEmpty() && magnitude.isEmpty())
+                        datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisSinOrdenar(country));
 
-            } else
-                // Case: No hay filtro, mostrar todos los terremotos ordenados por magnitud
-                datosTerremotos.addAll(tDao.ordenarPorMagnitud());
+                    // Case: Global, usando operador y magnitud
+                    if (!operator.isEmpty() && !magnitude.isEmpty() && country.equals("Global"))
+                        datosTerremotos.addAll(tDao.obtenerTerremotosPorOperadorYMagnitud(operator, magnitude));
 
-            if (datosTerremotos.isEmpty())
-                Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
+                    // Case: Usando Pais, Operador y Magnitud
+                    if (!operator.isEmpty() && !magnitude.isEmpty() && !country.isEmpty())
+                        datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisOperadorYMagnitud(country, operator, magnitude));
+
+                } else
+                    // Case: No hay filtro, mostrar todos los terremotos ordenados por magnitud
+                    tvData.setText("Magnitud: N/a, Pais: N/a)");
+                    datosTerremotos.addAll(tDao.ordenarPorMagnitud());
+
+                // Toast no funciona en un hilo secundario, por lo que usamos runOnUiThread
+                runOnUiThread(() -> {
+                    if (datosTerremotos.isEmpty())
+                        Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
+                });
+
+            });
 
         });
 
@@ -135,12 +146,6 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
         this.country = country;
         this.operator = operator;
         this.magnitude = magnitude;
-
-        // Traza
-        System.out.println("Filtro seleccionado: " + filterText);
-        System.out.println("País seleccionado: " + country);
-        System.out.println("Operador seleccionado: " + operator);
-        System.out.println("Magnitud seleccionada: " + magnitude);
 
         tvData.setText(filterText);
     }

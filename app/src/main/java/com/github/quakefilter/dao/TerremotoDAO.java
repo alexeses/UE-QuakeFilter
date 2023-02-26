@@ -8,7 +8,6 @@ import androidx.room.Update;
 
 import com.github.quakefilter.entities.Terremoto;
 
-import java.util.Collection;
 import java.util.List;
 
 @Dao
