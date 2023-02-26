@@ -9,11 +9,13 @@
 
     <ImageView
         android:id="@+id/ivTop"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:src="@drawable/world"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/llButtons"
-        android:alpha="0.8"
+        android:alpha="0.5"
+        android:gravity="center"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

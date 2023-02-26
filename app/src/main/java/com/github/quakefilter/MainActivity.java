@@ -57,7 +57,14 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
             vTerremotos.setItemAnimator(new DefaultItemAnimator());
             vTerremotos.setAdapter(adapter);
 
-            tvData.setText("asdfasdf");
+
+            TerremotosDB = TerremotosDB.getDatabase(this);
+            TerremotoDAO tDao = TerremotosDB.terremotoDAO();
+
+            List<Terremoto> terremotosList = tDao.obtenerTodosLosTerremotos();
+            TerremotoAdapter adapter = new TerremotoAdapter(terremotosList);
+            vTerremotos.setAdapter(adapter);
+
         });
 
         createDB();
