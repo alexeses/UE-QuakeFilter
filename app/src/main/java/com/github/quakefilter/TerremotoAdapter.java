@@ -38,12 +38,7 @@ public class TerremotoAdapter extends RecyclerView.Adapter<TerremotoAdapter.Terr
     }
 
     public static class TerremotoVH extends RecyclerView.ViewHolder {
-        TextView tvNombre;
-        TextView tvMagnitud;
-        TextView tvCoordenadas;
-        TextView tvLugar;
-        TextView tvFecha;
-        TextView tvMuertos;
+        TextView tvNombre, tvMagnitud, tvCoordenadas, tvLugar, tvFecha, tvMuertos;
         public TerremotoVH(@NonNull View itemView) {
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombreTerremoto);

@@ -22,7 +22,7 @@ public interface TerremotoDAO {
     @Delete
     void borrarTerremoto(Terremoto terremoto);
 
-    @Query("SELECT * FROM TERREMOTOS")
+    @Query("SELECT * FROM TERREMOTOS" + " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTodosLosTerremotos();
 
     // Borra todos los terremotos
@@ -33,11 +33,11 @@ public interface TerremotoDAO {
     @Query("SELECT * FROM TERREMOTOS ORDER BY magnitud DESC")
     List<Terremoto> ordenarPorMagnitud();
 
-    @Query("SELECT * FROM Terremotos WHERE lugar LIKE :pais")
+    @Query("SELECT * FROM Terremotos WHERE lugar LIKE :pais" + " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTerremotosPorPais(String pais);
 
     @Query("SELECT TERREMOTOS.* FROM TERREMOTOS, PAISES_AFECTADOS WHERE TERREMOTOS.fechaHora = " +
-            "PAISES_AFECTADOS.fechaHora AND PAISES_AFECTADOS.pais LIKE :pais")
+            "PAISES_AFECTADOS.fechaHora AND PAISES_AFECTADOS.pais LIKE :pais" + " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTerremotosPorPaisSinOrdenar(String pais);
 
     // Case: obtener terremotos por operador y magnitud
@@ -50,7 +50,8 @@ public interface TerremotoDAO {
             "WHEN :operador = '<=' AND magnitud <= :valorMagnitud THEN 1 " +
             "WHEN :operador = '!=' AND magnitud != :valorMagnitud THEN 1 " +
             "ELSE 0 " +
-            "END = 1")
+            "END = 1" +
+            " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTerremotosPorOperadorYMagnitud(String operador, String valorMagnitud);
 
     // Case: obtener terremotos por pais, operador y magnitud
@@ -64,6 +65,7 @@ public interface TerremotoDAO {
             "WHEN :operator = '<=' AND magnitud <= :magnitude THEN 1 " +
             "WHEN :operator = '!=' AND magnitud != :magnitude THEN 1 " +
             "ELSE 0 " +
-            "END = 1")
+            "END = 1" +
+            " ORDER BY magnitud DESC")
     List<Terremoto> obtenerTerremotosPorPaisOperadorYMagnitud(String country, String operator, String magnitude);
 }

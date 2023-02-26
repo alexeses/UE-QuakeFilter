@@ -20,7 +20,6 @@ public interface PaisesAfectadosDAO {
     @Query("DELETE FROM PAISES_AFECTADOS")
     void borrarTodosLosPaisesAfectados();
 
-    // Obtener nombre de los paises afectados
-    @Query("SELECT pais FROM PAISES_AFECTADOS")
+    @Query("SELECT DISTINCT pais FROM PAISES_AFECTADOS")
     List<String> obtenerNombresPaisesAfectados();
 }

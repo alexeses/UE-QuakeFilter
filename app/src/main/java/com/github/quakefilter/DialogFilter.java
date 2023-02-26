@@ -23,13 +23,11 @@ import java.util.concurrent.Executors;
 
 public class DialogFilter extends DialogFragment {
     private EditText magnitudeEditText;
-    private Spinner operatorSpinner;
-    private Spinner countrySpinner;
+    private Spinner operatorSpinner, countrySpinner;
     private OnFilterSelectedListener listener;
 
     public interface OnFilterSelectedListener {
         void onFilterSelected(String filterText, String country, String operator, String magnitude);
-
     }
 
     @Override

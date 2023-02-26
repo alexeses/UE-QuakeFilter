@@ -73,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
                     if (!country.isEmpty() && operator.isEmpty() && magnitude.isEmpty())
                         datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisSinOrdenar(country));
 
+                    // TODO: Pendiente de implementar
+                    //if (operator.equals("N/a") && magnitude.isEmpty() && !country.isEmpty())
+                    //    datosTerremotos.addAll(tDao.obtenerTerremotosPorPais(country));
+
                     // Case: Global, usando operador y magnitud
                     if (!operator.isEmpty() && !magnitude.isEmpty() && country.equals("Global"))
                         datosTerremotos.addAll(tDao.obtenerTerremotosPorOperadorYMagnitud(operator, magnitude));
@@ -81,10 +85,11 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
                     if (!operator.isEmpty() && !magnitude.isEmpty() && !country.isEmpty())
                         datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisOperadorYMagnitud(country, operator, magnitude));
 
-                } else
+                } else {
                     // Case: No hay filtro, mostrar todos los terremotos ordenados por magnitud
-                    tvData.setText("Magnitud: N/a, Pais: N/a)");
-                    datosTerremotos.addAll(tDao.ordenarPorMagnitud());
+                    datosTerremotos.addAll(tDao.obtenerTodosLosTerremotos());
+                    tvData.setText("Magnitud: N/a, Pais: N/a");
+                }
 
                 // Toast no funciona en un hilo secundario, por lo que usamos runOnUiThread
                 runOnUiThread(() -> {
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
 
     private void createDB() {
         System.out.println("Creando base de datos...");
-        TerremotosDB db = TerremotosDB.getDatabase(this);
+        TerremotosDB db = com.github.quakefilter.database.TerremotosDB.getDatabase(this);
 
         TerremotoDAO tDao = db.terremotoDAO();
         PaisesAfectadosDAO pAfect = db.paisesAfectadosDAO();

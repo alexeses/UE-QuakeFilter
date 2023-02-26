@@ -42,19 +42,13 @@ public class Terremoto {
         this.cantidadMuertos = cantidadMuertos;
     }
 
-    // Getters y setters
+    // Getters
     public String getFechaHora() { return fechaHora; }
-    public void setFechaHora(String fechaHora) { this.fechaHora = fechaHora; }
     public String getNombreDispositivo() { return nombreDispositivo; }
-    public void setNombreDispositivo(String nombreDispositivo) { this.nombreDispositivo = nombreDispositivo; }
     public double getMagnitud() { return magnitud; }
-    public void setMagnitud(double magnitud) { this.magnitud = magnitud; }
     public String getCoordenadasEpicentro() { return coordenadasEpicentro; }
-    public void setCoordenadasEpicentro(String coordenadasEpicentro) { this.coordenadasEpicentro = coordenadasEpicentro; }
     public String getLugar() { return lugar; }
-    public void setLugar(String lugar) { this.lugar = lugar; }
     public String getCantidadMuertos() { return cantidadMuertos; }
-    public void setCantidadMuertos(String cantidadMuertos) { this.cantidadMuertos = cantidadMuertos; }
 
     @Override
     public String toString() {

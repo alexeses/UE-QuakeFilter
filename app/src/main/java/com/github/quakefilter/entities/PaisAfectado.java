@@ -26,11 +26,9 @@ public class PaisAfectado {
         this.pais = pais;
     }
 
-    // Getters y setters
+    // Getters
     public String getFechaHora() { return fechaHora; }
-    public void setFechaHora(String fechaHora) { this.fechaHora = fechaHora; }
     public String getPais() { return pais; }
-    public void setPais(String pais) { this.pais = pais; }
 
     @Override
     public String toString() {
