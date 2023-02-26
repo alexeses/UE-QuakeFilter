@@ -3,7 +3,9 @@
     <string-array name="operators">
         <item>></item>
         <item>>=</item>
-        <item>=</item>
-        <item>=</item>
+        <item>&lt;</item>
+        <item>&lt;=</item>
+        <item>==</item>
+        <item>!=</item>
     </string-array>
 </resources>

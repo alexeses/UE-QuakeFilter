@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.quakefilter.dao.PaisesAfectadosDAO;
 import com.github.quakefilter.dao.TerremotoDAO;
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
     private List<Terremoto> datosTerremotos;
     private RecyclerView vTerremotos;
 
-    private Button btnDialog;
-    private Button btnShowData;
+    private Button btnDialog, btnShowData;
     private TextView tvData;
+    private String country, operator, magnitude, filterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,30 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
             vTerremotos.setItemAnimator(new DefaultItemAnimator());
             vTerremotos.setAdapter(adapter);
 
-
             TerremotosDB = TerremotosDB.getDatabase(this);
             TerremotoDAO tDao = TerremotosDB.terremotoDAO();
 
-            List<Terremoto> terremotosList = tDao.obtenerTodosLosTerremotos();
-            TerremotoAdapter adapter = new TerremotoAdapter(terremotosList);
-            vTerremotos.setAdapter(adapter);
+            // Case: Sin filtro
+            if (filterText != null && !filterText.isEmpty()) {
+
+                // Case: Terremotos de un pais
+                if (!country.isEmpty() && operator.isEmpty() && magnitude.isEmpty())
+                    datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisSinOrdenar(country));
+
+                // Case: Global, usando operador y magnitud
+                if (!operator.isEmpty() && !magnitude.isEmpty() && country.equals("Global"))
+                    datosTerremotos.addAll(tDao.obtenerTerremotosPorOperadorYMagnitud(operator, magnitude));
+
+                // Case: Usando Pais, Operador y Magnitud
+                if (!operator.isEmpty() && !magnitude.isEmpty() && !country.isEmpty())
+                    datosTerremotos.addAll(tDao.obtenerTerremotosPorPaisOperadorYMagnitud(country, operator, magnitude));
+
+            } else
+                // Case: No hay filtro, mostrar todos los terremotos ordenados por magnitud
+                datosTerremotos.addAll(tDao.ordenarPorMagnitud());
+
+            if (datosTerremotos.isEmpty())
+                Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
 
         });
 
@@ -85,11 +103,6 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
 
             System.out.println("Total de terremotos: " + tDao.obtenerTodosLosTerremotos().size());
             System.out.println("Total de paises afectados: " + pAfect.obtenerTodosLosPaisesAfectados().size());
-
-            //tDao.obtenerTodosLosTerremotos().forEach(terremoto -> tDao.borrarTerremoto(terremoto));
-            // Borrar todos los paises afectados
-            //tDao.borrarTodosLosTerremotos();
-            //pAfect.borrarTodosLosPaisesAfectados();
 
             if (tDao.obtenerTodosLosTerremotos().isEmpty()) {
                 System.out.println("Base de datos creada correctamente");
@@ -117,7 +130,18 @@ public class MainActivity extends AppCompatActivity implements DialogFilter.OnFi
     }
 
     @Override
-    public void onFilterSelected(String filter) {
-        tvData.setText(filter);
+    public void onFilterSelected(String filterText, String country, String operator, String magnitude) {
+        this.filterText = filterText;
+        this.country = country;
+        this.operator = operator;
+        this.magnitude = magnitude;
+
+        // Traza
+        System.out.println("Filtro seleccionado: " + filterText);
+        System.out.println("País seleccionado: " + country);
+        System.out.println("Operador seleccionado: " + operator);
+        System.out.println("Magnitud seleccionada: " + magnitude);
+
+        tvData.setText(filterText);
     }
 }

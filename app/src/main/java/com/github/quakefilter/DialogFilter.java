@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +28,8 @@ public class DialogFilter extends DialogFragment {
     private OnFilterSelectedListener listener;
 
     public interface OnFilterSelectedListener {
-        void onFilterSelected(String filter);
+        void onFilterSelected(String filterText, String country, String operator, String magnitude);
+
     }
 
     @Override
@@ -37,12 +39,6 @@ public class DialogFilter extends DialogFragment {
             listener = (OnFilterSelectedListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnFilterSelectedListener");
-        }
-    }
-
-    private void sendFilterToActivity(String filter) {
-        if (listener != null) {
-            listener.onFilterSelected(filter);
         }
     }
 
@@ -75,6 +71,7 @@ public class DialogFilter extends DialogFragment {
             public void run() {
                 // Se hace una consulta a la base de datos para obtener la lista de países
                 TerremotosDB db = TerremotosDB.getDatabase(requireContext());
+                countries.add("Global");
                 countries.addAll(db.paisesAfectadosDAO().obtenerNombresPaisesAfectados());
                 // Se actualiza la interfaz de usuario con los resultados de la consulta
                 requireActivity().runOnUiThread(new Runnable() {
@@ -91,30 +88,39 @@ public class DialogFilter extends DialogFragment {
         builder.setView(view)
                 .setTitle("Filtrar Terremotos")
                 .setPositiveButton("Filtrar", (dialog, id) -> {
+
                     String operator = operatorSpinner.getSelectedItem().toString();
                     String magnitude = magnitudeEditText.getText().toString();
-                    String country = (String) countrySpinner.getSelectedItem();
+                    String country = countrySpinner.getSelectedItem().toString();
 
                     // Se construye la cadena de texto del filtro, concatenando el operador y la magnitud
                     String filterText = "";
                     if (!magnitude.isEmpty()) {
                         if (operator.isEmpty()) {
                             // Si se introdujo la magnitud pero no el operador, se pide el operador
+                            Toast.makeText(getContext(), "Introduce el operador correspondiente", Toast.LENGTH_SHORT).show();
                             operatorSpinner.performClick();
                             return;
                         } else {
                             filterText = "Magnitud: " + operator + " " + magnitude + ", ";
                         }
+                    } else if (!operator.isEmpty()) {
+                        // Si se introdujo el operador pero no la magnitud, se pide la magnitud
+                        Toast.makeText(getContext(), "Introduce la magnitud correspondiente", Toast.LENGTH_SHORT).show();
+                        magnitudeEditText.requestFocus();
+                        return;
                     }
                     if (country != null && !country.isEmpty()) {
                         filterText += "País: " + country;
                     }
-                    listener.onFilterSelected(filterText);
+
+                    listener.onFilterSelected(filterText, country, operator, magnitude);
                 })
                 .setNegativeButton("Cancelar", (dialog, id) -> {
                     // Se cierra el diálogo sin enviar ningún filtro
                     dismiss();
                 });
         return builder.create();
+
     }
 }

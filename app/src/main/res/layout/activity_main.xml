@@ -61,7 +61,6 @@
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Current Filter:"
         android:textSize="18sp"
         android:layout_marginTop="20dp"
         android:gravity="center"
